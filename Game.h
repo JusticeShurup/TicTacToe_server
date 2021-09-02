@@ -12,7 +12,7 @@ public:
 
 	std::string getName() const;
 
-	Player* getPlayer(int index) const;
+	Player* getPlayer(int index);
 	void addPlayer(Player* second_player);
 	void removePlayer(Player* player);
 	bool isReady() const;

@@ -53,7 +53,6 @@ ClientHandler::~ClientHandler() {
 
 void ClientHandler::handleRead(Poco::Net::ReadableNotification* notification) {
     notification->release();
-
     try {
         player->handleRead(socket);
     }

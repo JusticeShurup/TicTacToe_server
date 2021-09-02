@@ -5,7 +5,7 @@
 
 void Server::addPlayer(const Poco::Net::StreamSocket& socket, Player* player) {
 	auto it = players.find(socket);
-	if (it != players.end()) throw std::runtime_error("Client already cpnnected");
+	if (it != players.end()) throw std::runtime_error("Client already connected");
 
 	players[socket] = player;
 }

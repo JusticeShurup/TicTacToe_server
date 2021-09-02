@@ -1,34 +1,36 @@
 #include "LobbyGameState.h"
+#include "ClientConnectedState.h"
 #include "Player.h"
 #include "Server.h"
 #include "Game.h"
 #include "Poco/Net/StreamSocket.h"
+#include <stdint.h>
+#include <string>
+#include <iostream>
 
 LobbyGameState::LobbyGameState(Player* player) :
 	State(player)
-{
-	Poco::Net::StreamSocket client;
-	player->getGame()->addPlayer(new Player(client, player->getServer()));
-}
+{}
 
 void LobbyGameState::handleRead(Poco::Net::StreamSocket socket) {
-	uint8_t message = 2;
-	char* buffer = new char[20];
-	if (player->getServer()->getPlayerBySocket(socket)->get_gameNumber() != 0 && player->getGame()->getPlayer(1)) {
-		std::string nickname;
-		std::cout << "fuck" << std::endl;
+	uint8_t message;
+	socket.receiveBytes(&message, sizeof(uint8_t));
+	std::string nickname;
+	uint8_t size;
+	if (player->getGame()->getPlayer(1) != nullptr) {
+		message = 1;
+		socket.sendBytes(&message, sizeof(uint8_t));
 		if (player->getServer()->getPlayerBySocket(socket)->get_gameNumber() == 1) {
-			nickname = player->getGame()->getPlayer(1)->getNickname();
-			strcpy(buffer, nickname.c_str());
+			size = player->getGame()->getPlayer(0)->getNickname().size();
+			nickname = player->getGame()->getPlayer(0)->getNickname().c_str();
 		}
 		else {
-			nickname = player->getGame()->getPlayer(0)->getNickname();
-			strcpy(buffer, nickname.c_str());
+			size = player->getGame()->getPlayer(1)->getNickname().size();
+			nickname = player->getGame()->getPlayer(1)->getNickname().c_str();
 		}
-		socket.sendBytes(buffer, 20);
+		socket.sendBytes(&size, sizeof(uint8_t));
+		socket.sendBytes(nickname.c_str(), nickname.size());
 	}
-	std::cout << "nigga" << std::endl;
-	delete buffer;
 	/*
 	if (message == READY_MSG) {
 		player->getGame()->start();

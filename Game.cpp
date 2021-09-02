@@ -7,6 +7,7 @@ Game::Game(const std::string &name, Player* first_player) :
 	name(name)
 {
 	players[0] = first_player;
+	first_player->setGame(this);
 	players[1] = nullptr;
 }
 
@@ -21,9 +22,8 @@ std::string Game::getName() const {
 	return name;
 }
 
-Player* Game::getPlayer(int index) const {
+Player* Game::getPlayer(int index) {
 	if (index != 0 && index != 1) throw std::logic_error("Player must have index equals only to 0 or 1");
-
 	return players[index];
 }
 
