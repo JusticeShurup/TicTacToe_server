@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "ClientConnectedState.h"
 #include "Game.h"
+#include <string>
 #include <stdexcept>
 
 Player::Player(Poco::Net::StreamSocket& client, Server* server) :
@@ -8,8 +9,7 @@ Player::Player(Poco::Net::StreamSocket& client, Server* server) :
 	server(server),
 	game(nullptr),
 	state(new ClientConnectedState(this)),
-	is_ready(false), 
-	nickname("player"), 
+	is_ready(false),  
 	game_number(0)
 {}
 
@@ -63,4 +63,8 @@ int Player::get_gameNumber() const {
 void Player::set_gameNumber(int game_number) {
 	if (game_number > 2 || game_number < 1) throw std::range_error("Incorrect game number");
 	this->game_number = game_number;
+}
+
+Poco::Net::StreamSocket& Player::getSock() {
+	return socket;
 }

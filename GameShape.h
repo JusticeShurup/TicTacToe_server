@@ -3,15 +3,14 @@
 class GameShape
 {
 public:
-	GameShape(int startX, int endX, int startY, int endY);
-	bool isClicked(int posX, int posY, int player_number);
-	int get_player_number();
-private: 
+	GameShape();
 
-	int startX;
-	int endX;
-	int startY;
-	int endY;
+	void set_enabled(bool flag);
+	bool get_enabled();
+
+	int get_player_number();
+	void set_player_number(int player_number);
+private: 
 
 	int player_number;
 	bool enabled;

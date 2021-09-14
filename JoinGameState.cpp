@@ -3,14 +3,14 @@
 #include "Player.h"
 #include "Server.h"
 #include "Game.h"
+#include "WaitSecondPlayerState.h"
 #include <stdexcept>
 
 JoinGameState::JoinGameState(Player* player) :
 	State(player),
 	position(0),
 	name_buffer{0}
-{
-}
+{}
 
 void JoinGameState::handleRead(Poco::Net::StreamSocket socket) {
 	int actually_read = socket.receiveBytes(name_buffer + position, MAX_NAME_LENGTH + 1 - position);
@@ -21,9 +21,10 @@ void JoinGameState::handleRead(Poco::Net::StreamSocket socket) {
 	}
 
 	position += actually_read;
-
+	
 	if (position > bytes_to_read) {
-		std::string name(name_buffer + 1, bytes_to_read);
+		std::string name(name_buffer+1, bytes_to_read);
+		
 		Server* server = player->getServer();
 		try {
 			Game* game = server->getGame(name);
@@ -37,13 +38,14 @@ void JoinGameState::handleRead(Poco::Net::StreamSocket socket) {
 			return;
 		}
 		uint8_t result = 1;
-		player->getServer()->getPlayerBySocket(socket)->set_gameNumber(2);
+		player->set_gameNumber(2);
 		socket.sendBytes(&result, sizeof(uint8_t));
 		uint8_t size = name.size();
 		socket.sendBytes(&size, sizeof(uint8_t));
 		socket.sendBytes(name.c_str(), name.size());
+
+		player->getGame()->getPlayer(0)->setState(new LobbyGameState(player->getGame()->getPlayer(0)));
 		player->setState(new LobbyGameState(player));
-		// TODO: change state
 
 	}
 }

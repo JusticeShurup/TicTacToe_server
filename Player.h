@@ -28,6 +28,7 @@ public:
 	int get_gameNumber() const;
 	void set_gameNumber(int game_number);
 
+	Poco::Net::StreamSocket& getSock();
 private:
 	Poco::Net::StreamSocket socket;
 	std::string nickname;

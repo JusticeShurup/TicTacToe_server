@@ -3,12 +3,15 @@
 #include <Poco/Net/StreamSocket.h>
 #include <string>
 #include <map>
+#include <mutex>
+#include <condition_variable>
 
 class Player;
 class Game;
 
 class Server {
 public:
+
 	void addPlayer(const Poco::Net::StreamSocket& socket, Player* player);
 	Player* getPlayerBySocket(const Poco::Net::StreamSocket& socket) const;
 	void removePlayerBySocket(const Poco::Net::StreamSocket& socket);

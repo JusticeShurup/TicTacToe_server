@@ -144,6 +144,7 @@
     <ClCompile Include="CreateGameState.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameShape.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="JoinGameState.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PocoReactor.cpp" />
@@ -151,6 +152,8 @@
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="TicTacToeAcceptor.cpp" />
+    <ClCompile Include="WaitForReadyGameState.cpp" />
+    <ClCompile Include="WaitSecondPlayerState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientConnectedState.h" />
@@ -158,12 +161,15 @@
     <ClInclude Include="CreateGameState.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameShape.h" />
+    <ClInclude Include="GameState.h" />
     <ClInclude Include="JoinGameState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="LobbyGameState.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="TicTacToeAcceptor.h" />
+    <ClInclude Include="WaitForReadyGameState.h" />
+    <ClInclude Include="WaitSecondPlayerState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

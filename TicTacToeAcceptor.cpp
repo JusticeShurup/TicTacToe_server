@@ -6,5 +6,6 @@ TicTacToeAcceptor::TicTacToeAcceptor(Poco::Net::ServerSocket& server_socket, Poc
 {}
 
 ClientHandler* TicTacToeAcceptor::createServiceHandler(Poco::Net::StreamSocket& socket) {
+	std::cout << "Connected" << std::endl;
 	return new ClientHandler(socket, *reactor(), server);
 }

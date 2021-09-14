@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Poco/Net/StreamSocket.h>
-
 class Player;
 
 class State {

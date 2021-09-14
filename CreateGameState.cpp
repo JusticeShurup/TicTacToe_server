@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <stdint.h>
 #include "ClientConnectedState.h"
+#include "WaitSecondPlayerState.h"
 #include "LobbyGameState.h"
 
 CreateGameState::CreateGameState(Player* player) :
@@ -42,7 +43,7 @@ void CreateGameState::handleRead(Poco::Net::StreamSocket socket) {
 		socket.receiveBytes(&result, sizeof(uint8_t));
 	}
 	if (result == 1) {
-		player->setState(new LobbyGameState(player));
+		player->setState(new WaitSecondPlayerState(player));
 	}
 	//delete server;
 }

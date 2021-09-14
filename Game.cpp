@@ -1,20 +1,25 @@
 #include "Game.h"
 #include "Player.h"
 #include <stdexcept>
-//#include "InGameState.h"
+#include "GameState.h"
+#include "WaitSecondPlayerState.h"
 
 Game::Game(const std::string &name, Player* first_player) :
-	name(name)
+	name(name), 
+	game_shapes{new GameShape}
 {
+	turns = 0;
 	players[0] = first_player;
 	first_player->setGame(this);
 	players[1] = nullptr;
+	for (auto& i : game_shapes) i = new GameShape;
 }
 
 void Game::start() {
 	if (isReady()) {
-		//players[0]->setState(new InGameState);
-		//players[1]->setState(new InGameState);
+		turns = 1;
+		players[0]->setState(new GameState(players[0]));
+		players[1]->setState(new WaitSecondPlayerState(players[1]));
 	}
 }
 
@@ -29,7 +34,6 @@ Player* Game::getPlayer(int index) {
 
 void Game::addPlayer(Player* second_player) {
 	if (players[1]) throw std::runtime_error("This game is already full");
-
 	players[1] = second_player;
 }
 
@@ -46,5 +50,9 @@ void Game::removePlayer(Player* player) {
 }
 
 bool Game::isReady() const {
-	return players[0] && players[1];
+	return players[0]->get_ready() && players[1]->get_ready();
+}
+
+GameShape* Game::getGameShape(int gameShape_number) {
+	return game_shapes[gameShape_number];
 }
