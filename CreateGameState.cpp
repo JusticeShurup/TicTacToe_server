@@ -7,6 +7,7 @@
 #include "ClientConnectedState.h"
 #include "WaitSecondPlayerState.h"
 #include "LobbyGameState.h"
+#include <iostream>
 
 CreateGameState::CreateGameState(Player* player) :
 	State(player),
@@ -24,11 +25,12 @@ void CreateGameState::handleRead(Poco::Net::StreamSocket socket) {
 	}
 
 	position += actually_read;
-
 	if (position > bytes_to_read) {
-		std::string name(name_buffer + 1, bytes_to_read);
+		std::string name(name_buffer + 1, name_buffer[0]);
+		std::cout << name  << " " << name.size() << std::endl;
 		Server* server = player->getServer();
 		if (!server->isGameNameFree(name)) {
+			std::cout << "game is not free" << std::endl;
 			position = 0;
 			//uint8_t result = 1;
 			//socket.sendBytes(&result, sizeof(uint8_t));
@@ -38,12 +40,9 @@ void CreateGameState::handleRead(Poco::Net::StreamSocket socket) {
 		server->addGame(name, new Game(name, player));
 		player->set_gameNumber(1);
 		uint8_t size = name.size();
-		socket.sendBytes(&size, sizeof(uint8_t));
-		socket.sendBytes(name.c_str(), name.size());
-		socket.receiveBytes(&result, sizeof(uint8_t));
-	}
-	if (result == 1) {
+		
+		sendNameBytes(name_buffer);
+
 		player->setState(new WaitSecondPlayerState(player));
 	}
-	//delete server;
 }

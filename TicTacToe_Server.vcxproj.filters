@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Файлы заголовков">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Файлы ресурсов">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -16,7 +12,11 @@
     <Filter Include="Исходные файлы\States">
       <UniqueIdentifier>{2d98f95d-f94c-4ea2-b2c3-93561d81b306}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\States">
+    <Filter Include="Исходные файлы\Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\Файлы заголовков\States">
       <UniqueIdentifier>{766b5773-bd5c-4bcd-be49-7d6a840e3b11}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -69,46 +69,46 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Исходные файлы\Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Исходные файлы\Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="GameShape.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Исходные файлы\Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="ClientHandler.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Исходные файлы\Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Server.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Исходные файлы\Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="TicTacToeAcceptor.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Исходные файлы\Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="ClientConnectedState.h">
-      <Filter>Файлы заголовков\States</Filter>
+      <Filter>Исходные файлы\Файлы заголовков\States</Filter>
     </ClInclude>
     <ClInclude Include="CreateGameState.h">
-      <Filter>Файлы заголовков\States</Filter>
+      <Filter>Исходные файлы\Файлы заголовков\States</Filter>
     </ClInclude>
     <ClInclude Include="JoinGameState.h">
-      <Filter>Файлы заголовков\States</Filter>
+      <Filter>Исходные файлы\Файлы заголовков\States</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
-      <Filter>Файлы заголовков\States</Filter>
+      <Filter>Исходные файлы\Файлы заголовков\States</Filter>
     </ClInclude>
     <ClInclude Include="LobbyGameState.h">
-      <Filter>Файлы заголовков\States</Filter>
+      <Filter>Исходные файлы\Файлы заголовков\States</Filter>
     </ClInclude>
     <ClInclude Include="WaitSecondPlayerState.h">
-      <Filter>Файлы заголовков\States</Filter>
+      <Filter>Исходные файлы\Файлы заголовков\States</Filter>
     </ClInclude>
     <ClInclude Include="WaitForReadyGameState.h">
-      <Filter>Файлы заголовков\States</Filter>
+      <Filter>Исходные файлы\Файлы заголовков\States</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
-      <Filter>Файлы заголовков\States</Filter>
+      <Filter>Исходные файлы\Файлы заголовков\States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

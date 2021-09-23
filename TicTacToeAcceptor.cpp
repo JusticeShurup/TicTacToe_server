@@ -1,4 +1,5 @@
 #include "TicTacToeAcceptor.h"
+#include <iostream>
 
 TicTacToeAcceptor::TicTacToeAcceptor(Poco::Net::ServerSocket& server_socket, Poco::Net::SocketReactor& reactor, Server* server) :
 	SocketAcceptor(server_socket, reactor),

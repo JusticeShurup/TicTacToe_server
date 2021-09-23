@@ -3,18 +3,19 @@
 #include "JoinGameState.h"
 #include "Player.h"
 #include "Server.h"
+#include <iostream>
 
 ClientConnectedState::ClientConnectedState(Player* player) :
-	State(player)
+	State(player), 
+	buffer{0}
 {}
 
 void ClientConnectedState::handleRead(Poco::Net::StreamSocket socket) {
 	uint8_t player_name_size = 0;
-	socket.receiveBytes(&player_name_size, sizeof(player_name_size));
-	std::string player_name(player_name_size, ' ');
-	socket.receiveBytes(&(player_name[0]), player_name_size);
-	player->getServer()->getPlayerBySocket(socket)->setNickname(player_name);
-	std::cout << player_name << std::endl;
+	
+	receiveNameBytes(buffer);
+
+	player->setNickname(buffer+1);
 	uint8_t message;
 	socket.receiveBytes(&message, sizeof(uint8_t));
 	switch (message) {

@@ -3,7 +3,7 @@
 #include "State.h"
 
 class JoinGameState : public State {
-	static const int MAX_NAME_LENGTH = 128;
+	static const int MAX_NAME_LENGTH = 18;
 
 public:
 	JoinGameState(Player* player);

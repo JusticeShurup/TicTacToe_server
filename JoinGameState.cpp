@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "WaitSecondPlayerState.h"
 #include <stdexcept>
+#include <iostream>
 
 JoinGameState::JoinGameState(Player* player) :
 	State(player),
@@ -21,10 +22,10 @@ void JoinGameState::handleRead(Poco::Net::StreamSocket socket) {
 	}
 
 	position += actually_read;
-	
+
 	if (position > bytes_to_read) {
-		std::string name(name_buffer+1, bytes_to_read);
-		
+		std::string name(name_buffer + 1, name_buffer[0]);
+		std::cout << name << " " << name.size() << std::endl;
 		Server* server = player->getServer();
 		try {
 			Game* game = server->getGame(name);
@@ -32,6 +33,7 @@ void JoinGameState::handleRead(Poco::Net::StreamSocket socket) {
 			player->setGame(game);
 		}
 		catch (std::runtime_error& e) {  // TODO: make distinct exceptions
+			std::cout << e.what() << std::endl;
 			position = 0;
 			uint8_t result = 0;
 			socket.sendBytes(&result, sizeof(uint8_t));
@@ -40,9 +42,9 @@ void JoinGameState::handleRead(Poco::Net::StreamSocket socket) {
 		uint8_t result = 1;
 		player->set_gameNumber(2);
 		socket.sendBytes(&result, sizeof(uint8_t));
-		uint8_t size = name.size();
-		socket.sendBytes(&size, sizeof(uint8_t));
-		socket.sendBytes(name.c_str(), name.size());
+		std::cout << "no cringe" << std::endl;
+
+		sendNameBytes(name_buffer);
 
 		player->getGame()->getPlayer(0)->setState(new LobbyGameState(player->getGame()->getPlayer(0)));
 		player->setState(new LobbyGameState(player));

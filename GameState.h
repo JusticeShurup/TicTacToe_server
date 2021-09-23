@@ -9,6 +9,6 @@ public:
 
 	virtual void handleRead(Poco::Net::StreamSocket socket) override;
 private:
-	char buffer[18];
+	char buffer[9];
 };
 #endif

@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Game.h"
 #include "WaitSecondPlayerState.h"
+#include <iostream>
 
 WaitForReadyGameState::WaitForReadyGameState(Player* player) : State(player) {}
 
@@ -14,27 +15,30 @@ void WaitForReadyGameState::handleRead(Poco::Net::StreamSocket socket) {
 			std::cout << player->getNickname() << " is ready" << std::endl;
 			player->set_ready(1);
 		}
-		else{
+		else {
 			std::cout << player->getNickname() << " is not ready" << std::endl;
 			player->set_ready(0);
 		}
 		if (player->getGame()->isReady()) {
 			std::cout << "Game is ready" << std::endl;
 			uint8_t message = 1; // Game is ready, client can switch to game_screen
-			uint8_t player_number; 
-			if (player->get_gameNumber() == 1) {
-				player->getGame()->getPlayer(1)->getSock().sendBytes(&message, sizeof(uint8_t));
-				player_number = player->getGame()->getPlayer(1)->get_gameNumber();
-				player->getGame()->getPlayer(1)->getSock().sendBytes(&player_number, sizeof(uint8_t));
-			}
-			else {
-				player->getGame()->getPlayer(0)->getSock().sendBytes(&message, sizeof(uint8_t));
-				player_number = player->getGame()->getPlayer(0)->get_gameNumber();
-				player->getGame()->getPlayer(0)->getSock().sendBytes(&player_number, sizeof(uint8_t));
-			}
-			socket.sendBytes(&message, sizeof(uint8_t));
+			uint8_t player_number;
+			Player* second_player = player->getGame()->getPlayer(2 - player->get_gameNumber());
+			player->getSock().sendBytes(&message, sizeof(uint8_t));
+			second_player->getSock().sendBytes(&message, sizeof(uint8_t));
+			std::cout << player->get_gameNumber() << " " << second_player->get_gameNumber() << std::endl;
+
+			player_number = second_player->get_gameNumber();
+			second_player->getSock().sendBytes(&player_number, sizeof(uint8_t));
+			message = (second_player->get_gameNumber() == 1 ? 1 : 0);
+			second_player->getSock().sendBytes(&message, sizeof(uint8_t));
+
 			player_number = player->get_gameNumber();
-			player->getSock().sendBytes(&player_number, sizeof(uint8_t));
+			socket.sendBytes(&player_number, sizeof(uint8_t));
+			message = (player->get_gameNumber() == 1 ? 1 : 0);
+			player->getSock().sendBytes(&message, sizeof(uint8_t));
+
+
 			player->getGame()->start();
 		}
 		break;
